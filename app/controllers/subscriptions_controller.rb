@@ -12,6 +12,12 @@ class SubscriptionsController < ApplicationController
         format.html { redirect_to project_path(@project.id), alert: 'Your subscription could not be processed.' }
       end
     end
+
+    if @subscription.save
+      Notifier.subscription_confirmation(current_user, @project).deliver
+    else
+    end
+
   end
 
   def destroy
